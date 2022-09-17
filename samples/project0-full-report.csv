@@ -1,0 +1,37 @@
+sid,name,repo_link,t1[10],t2[10],t3[10],t4[10],t5[30],t6[0],t7[0],t8[30],is_late,late_days,penalty_percentage_per_late_day,total_considering_late_days
+#########,Anonymized Anonymized,NoRepoGiven,10,0,0,0,0,0,0,0,FALSE,0,0.2,10
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,TRUE,0.20056713,0.2,96
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,"Your repo link here (e.g., ""git@bitbucket.org:Anonymized/Anonymized.git"")",10,0,0,0,0,0,0,0,FALSE,0,0.2,10
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,0,FALSE,0,0.2,70
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git clone git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,git clone git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,git clone git@bitbucket.org:Anonymized/Anonymized.git,10,10,0,0,0,0,0,0,FALSE,0,0.2,20
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,ProvidedOriginalLink,10,0,0,0,0,0,0,0,FALSE,0,0.2,10
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,0,0,0,0,FALSE,0,0.2,40
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git clone git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,"Your repo link here (e.g., ""git@bitbucket.org:Anonymized/Anonymized.git"")",10,0,0,0,0,0,0,0,FALSE,0,0.2,10
+#########,Anonymized Anonymized,git clone https://Anonymized@bitbucket.org/Anonymized/Anonymized.git,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,ProvidedOriginalLink,10,10,0,0,0,0,0,0,FALSE,0,0.2,20
+#########,Anonymized Anonymized,NoRepoGiven,10,0,0,0,0,0,0,0,FALSE,0,0.2,10
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
+#########,Anonymized Anonymized,https://bitbucket.org/Anonymized/Anonymized/src/master/,10,10,10,0,0,0,0,0,FALSE,0,0.2,30
+#########,Anonymized Anonymized,git@bitbucket.org:Anonymized/Anonymized.git,10,10,10,10,30,0,0,30,FALSE,0,0.2,100
