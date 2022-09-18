@@ -49,6 +49,11 @@ throwing an exception, you should catch it and return it as a feedback.
 - **Posting Grades:** We need to write a script to merge our new project grade with the student's overall grades from
    the education management system (e.g., blackboard). The merger script will make communicating the grades much easier
    (just import them).
+- **Plagiarism Detection** For the initial projects the tasks are simple and have no deep algorithmic requirements.
+   However, as students advance in the course a more demanding projects will be assigned. In these future projects,
+   a similarity check system might be necessary to sustain the automation. There are different similarity check
+   systems. One of the most well know applications is [Moss](https://theory.stanford.edu/~aiken/moss/). We should
+   look into how to integrate with Moss and sustain the automation. 
 
 ## Files Structure
 
