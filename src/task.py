@@ -20,15 +20,28 @@ class ExecutableTask:
 
     def execute(self):
         self.command.execute()
-        self.set_result(self.command.get_result())
+        feedback = self.command.get_result()
+        if isinstance(feedback, Feedback):
+            self.set_feedback_based_result(feedback)
+        else:
+            self.set_result(feedback[0], feedback[1])
 
-    def set_result(self, result: Tuple[bool, str]):
-        self.is_pass = result[0]
-        self.result_desc = result[1]
+    def set_result(self, is_pass: bool, message: str):
+        self.is_pass = is_pass
+        self.result_desc = message
         if self.is_pass:
             self.points = self.possible_points
         else:
             self.points = 0
+
+    def set_feedback_based_result(self, feedback: Feedback):
+        self.is_pass = feedback.is_pass
+
+        # scaling the score from 0-100 scale to 0-[whatever the possible points here are]
+        # self.points = round((feedback.get_score() - 0)/(100 - 0) * (self.possible_points - 0) + 0, 2)
+        self.points = util.scale_to_range(value=feedback.get_score(), range_min=0, range_max=100, target_min=0,
+                                          target_max=self.possible_points)
+        self.result_desc = feedback.get_message()
 
     def cast(self) -> list:
         return [self.task_id, self.desc, self.possible_points, self.points, self.is_pass, self.result_desc]
