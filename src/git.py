@@ -7,7 +7,7 @@ import logging
 import datetime
 import subprocess
 
-from student import Student
+from pygrade.src.student import Student
 
 logger = logging.getLogger(__name__)
 

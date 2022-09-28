@@ -5,7 +5,7 @@ import math
 import logging
 from typing import Dict, List
 
-from task import ReportableTask
+from pygrade.src.task import ReportableTask
 
 
 class Rubric:

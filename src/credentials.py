@@ -7,9 +7,9 @@ import logging
 import configparser
 from typing import List
 
-import util
-import config
-from student import Student
+from pygrade.src import util
+from pygrade.src import config
+from pygrade.src.student import Student
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +151,7 @@ def get_student_repo_link_from_ini(student: Student, section="DEFAULT"):
 
 def strip_quotations(text: str):
     """
-    Students tend to surrouond their values (name, id, and link) with quotation marks. If that is the case,
+    Students tend to surround their values (name, id, and link) with quotation marks. If that is the case,
     this method try to help by removing quotation marks only if they occur at start and end of the string.
     :param text:
     :return:
@@ -176,7 +176,7 @@ def is_link_pattern_valid(link: str) -> bool:
 def is_our_repo(link: str, workspace_name: str, username: str) -> bool:
     """
     Check if the link given match the pattern for one of our repository.
-    Some students will just give you the link you provided. And if you helped in some of the tasks originally,
+    Some students will just give you the link you provided. And if you helped in some tasks originally,
     they will collect free points. Our repo should never be cloned as the student's repo.
     sample patter: "git@bitbucket.org:OUR_USERNAME/projectname.git"
     :param link: The link to test.

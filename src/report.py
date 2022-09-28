@@ -5,7 +5,7 @@ import os
 import csv
 from typing import List
 
-from student import Student
+from pygrade.src.student import Student
 
 
 def markdown_student_feedback(student: Student, project_id: int) -> str:
