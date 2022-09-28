@@ -49,3 +49,19 @@ def read_random_line_from_file(file_path: str) -> str:
         lines = file.read().splitlines()
         line = random.choice(lines)
     return line
+
+def scale_to_range(value: float, range_min: float, range_max: float, target_min: float, target_max: float):
+    """
+    Scale a value in [range_min - range_max] to be within [target_min - target_max].
+    See this post for more info:
+    https://stats.stackexchange.com/questions/281162/scale-a-number-between-a-range
+
+    :param value:
+    :param range_min:
+    :param range_max:
+    :param target_min:
+    :param target_max:
+    :return:
+    """
+    # we round to two decimals!
+    return round((value - range_min) / (range_max - range_min) * (target_max - target_min) + target_min, 2)
