@@ -24,8 +24,8 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
     markdown += f"This is your detailed grade for the Project-{project_id}.\n"
     markdown += f"Please reade everything carefully and try to understand where you made mistakes (if any).\n"
     markdown += f"We tried to be as descriptive in the grading script messages as possible.\n"
-    markdown += f"However, if don't understand any message, please ask for an explanation!.\n"
-    markdown += f"The file is divided into smaller sub-sections next.\n"
+    markdown += f"However, if you don't understand any message, please ask for an explanation!.\n"
+    markdown += f"The file is divided into smaller subsections next.\n"
     markdown += f"Each section represent a ttask/test we examined.\n"
     markdown += f"There are task with points and there are other that have zero points.\n"
     markdown += f"Thus, if you see a zero that is not necessarily a bad thing.\n"
@@ -48,7 +48,7 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
     markdown += f"## Total Grade:\n"
     if grading_rubric.is_late:
         markdown += f"Submission was late!\n"
-        markdown += f"{grading_rubric.get_late_calculation_explanation()}\n"
+        markdown += f"{grading_rubric.get_late_calculation_explanation()}\n\n"
         markdown += f"**{grading_rubric.get_total_points_when_late()}** out of " \
                     f"**{grading_rubric.total_possible_points}**!\n\n"
     else:
@@ -95,6 +95,37 @@ def csv_overall_report(students: List[Student], project_id: int, dir_name="repor
 
     # name of csv file
     filename = f"project{project_id}-full-report.csv"
+
+    # writing to csv file
+    with open(f"{report_full_dir}/{filename}", 'w') as csvfile:
+        # creating a csv writer object
+        csvwriter = csv.writer(csvfile)
+
+        # writing the fields
+        csvwriter.writerow(fields)
+
+        # writing the data rows
+        csvwriter.writerows(rows)
+
+
+def email_list_csv(students: List[Student], project_id: int, dir_name="reports"):
+    report_full_dir = f"{students[0].get_ini_root_dir()}/{dir_name}"
+
+    # make sure the main report dir exists
+    if not os.path.exists(report_full_dir):
+        os.makedirs(report_full_dir)
+
+    # field names
+    fields = ['sid', 'first_name', 'email', 'attachment']
+
+    rows = []
+    for student in students:
+        row = [f"{student.get_std_id()}", f"{student.get_first_name()}", f"{student.get_std_id()}@qu.edu.sa",
+               f"{report_full_dir}/{student.get_std_id()}-{student.get_first_name()}-project-{project_id}.md"]
+        rows.append(row)
+
+    # name of csv file
+    filename = f"project{project_id}-mailing-report.csv"
 
     # writing to csv file
     with open(f"{report_full_dir}/{filename}", 'w') as csvfile:
