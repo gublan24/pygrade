@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def copy_file_to_repo(student: Student):
     try:
-        shutil.copy("../project-0/hello.py", f"{student.get_repo_local_location()}/original-hello.py")
+        shutil.copy("../lab-grading-and-solutions/project-0/hello.py", f"{student.get_repo_local_location()}/original-hello.py")
         message = f"Copied original 'hello.py' file to '{student.get_obscure_rep_local_location()}'"
         result = True
     except Exception as e:
