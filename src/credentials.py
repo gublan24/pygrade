@@ -7,9 +7,9 @@ import logging
 import configparser
 from typing import List
 
-from pygrade.src import util
-from pygrade.src import config
-from pygrade.src.student import Student
+import util
+import config
+from student import Student
 
 logger = logging.getLogger(__name__)
 

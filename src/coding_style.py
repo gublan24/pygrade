@@ -2,8 +2,8 @@ import re
 import logging
 import subprocess
 
-from pygrade.src.student import Student
-from pygrade.src.feedback import Feedback
+from student import Student
+from feedback import Feedback
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ def check_for_score(student: Student, class_name: str) -> (bool, str):
         score = 0
         is_pass = False
 
-    return Feedback(is_pass, (score+1.54)*10, message)
+    return Feedback(is_pass, score*10, message)
 
 
 def check_for_type_hints(student: Student, class_name: str):

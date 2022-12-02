@@ -5,7 +5,7 @@ import math
 import logging
 from typing import Dict, List
 
-from pygrade.src.task import ReportableTask
+from task import ReportableTask
 
 
 class Rubric:
@@ -30,20 +30,16 @@ class Rubric:
             tasks_list.append(self.task_report_dict[key])
         return tasks_list
 
-    def get_total_points(self) -> int:
+    def get_total_points(self) -> float:
         total = 0
         for key, task in self.task_report_dict.items():
             total += task.points
         if total > self.total_possible_points:
             self.log.error(f'Total grade found {total} is larger than possible points {self.total_possible_points}')
-        return total
+        return round(total, 2)
 
-    def get_total_points_when_late(self) -> int:
-        total = 0
-        for key, task in self.task_report_dict.items():
-            total += task.points
-        if total > self.total_possible_points:
-            self.log.error(f'Total grade found {total} is larger than possible points {self.total_possible_points}')
+    def get_total_points_when_late(self) -> float:
+        total = self.get_total_points()
 
         # calling this method should only be when this is true, but double-checking
         if self.is_late:
@@ -55,7 +51,7 @@ class Rubric:
             total = (1 - penalty_percentage) * total
 
         # round up to an integer. Reminder int(x.x) will not always round up.
-        return math.ceil(total)
+        return round(total, 2)  # math.ceil(total)
 
     def get_late_calculation_explanation(self) -> str:
         message = f"Deducting {self.late_fee_per_day*100}% per late-day " \

@@ -2,7 +2,7 @@ __author__ = "Ziyad Alsaeed"
 __email__ = "zalsaeed@qu.edu.sa"
 
 import os
-from pygrade.src.rubric import Rubric
+from rubric import Rubric
 
 
 class Student:

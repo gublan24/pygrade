@@ -3,9 +3,9 @@ __email__ = "zalsaeed@qu.edu.sa"
 
 from typing import Tuple
 
-from pygrade.src import util
-from pygrade.src.command import Command
-from pygrade.src.feedback import Feedback
+import util
+from command import Command
+from feedback import Feedback
 
 
 class ExecutableTask:

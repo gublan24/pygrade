@@ -1,10 +1,12 @@
-__author__ = "Ziyad Alsaeed"
-__email__ = "zalsaeed@qu.edu.sa"
+__author__="Ziyad Alsaeed"
+__email__ ="zalsaeed@qu.edu.sa"
 
 import os
 import glob
 import random
 import logging
+import datetime
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -65,3 +67,41 @@ def scale_to_range(value: float, range_min: float, range_max: float, target_min:
     """
     # we round to two decimals!
     return round((value - range_min) / (range_max - range_min) * (target_max - target_min) + target_min, 2)
+
+
+def move_item_to_index(original: list, item: Any, idx: int) -> list:
+    """
+    Move an element in the list to a specifi location.
+    Preconditions: The list must not be empty. The item must be actually in the list.
+    And the index must be within the list.
+
+    :param original: The original list.
+    :param item: An item of the list.
+    :param idx: The index which we will move the item to.
+    :return: The list after moving the item to the new location.
+    """
+    assert 0 <= idx < len(original)
+    assert item in original
+
+    original.insert(idx, original.pop(original.index(item)))
+
+    return original
+
+
+def get_absolut_path_dir(path: str) -> str:
+    abspath = os.path.abspath(path)
+    return os.path.dirname(abspath)
+
+
+def get_filename_with_extension(path: str) -> str:
+    return os.path.basename(path)
+
+
+def get_filename_without_extension(path: str) -> str:
+    file_name = os.path.basename(path)
+    break_name = file_name.split(".")
+    return ".".join(break_name[:-1])
+
+
+def get_timestamp() -> str:
+    return datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
