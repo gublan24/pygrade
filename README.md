@@ -66,8 +66,8 @@ Ordered alphabetically:
    deadlines.
 - **[src/git.py](src/git.py)** is a set of methods that handles cloning students repos as well as checking the edits made against
    the defined deadline.
-- **[p0.py](p0.py)** is a sample assignment grading file that uses all the defined modules to put everything together.
-   In addition of using all the modules, it defines additional task as tests for the student.
+- **[p0.py](grading_script_sample.py)** is a sample assignment grading file that uses all the defined modules to put everything together.
+   In addition to using all the modules, it defines additional task as tests for the student.
 - **[src/report.py](src/report.py)** A set of methods that handle all the reporting of the assignments at the end of the grading
    process.
 - **[src/rubric.py](src/rubric.py)** A class defining a rubric that should be attached to each student. It is necessary for
