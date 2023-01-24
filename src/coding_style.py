@@ -44,7 +44,7 @@ def check_for_score(student: Student, class_name: str) -> (bool, str):
 
     try:
         run_test = subprocess.run(["pylint", "--attr-naming-style", "any", "--argument-naming-style", "any",
-                                   f"{class_name}"], cwd=student.get_repo_local_location(),
+                                   "--disable=C0123", f"{class_name}"], cwd=student.get_repo_local_location(),
                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         score = get_score_from_report(run_test.stdout.decode())
         message = run_test.stdout.decode()
