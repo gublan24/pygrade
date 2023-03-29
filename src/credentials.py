@@ -169,7 +169,7 @@ def is_link_pattern_valid(link: str) -> bool:
     :param link: The link to test.
     :return: True if the link matches our pattern, False otherwise.
     """
-    patter = re.compile("^git@bitbucket\.org:(.+)\/(.+)\.git$")
+    patter = re.compile("^git@github\.com:(.+)\/(.+)\.git$")
     return bool(patter.match(link))
 
 
@@ -184,9 +184,9 @@ def is_our_repo(link: str, workspace_name: str, username: str) -> bool:
     :param username:
     :return: True if the link matches our pattern, False otherwise.
     """
-    pattern1 = re.compile(f"^git@bitbucket\.org:{workspace_name}\/(.+)\.git$")
-    pattern2 = re.compile(f"^http(s{0,1}):\/\/bitbucket\.org\/{workspace_name}\/(.*)$")
-    pattern3 = re.compile(f"^http(s{0,1}):\/\/{username}@bitbucket\.org\/{workspace_name}\/(.*)$")
+    pattern1 = re.compile(f"^git@github\.org:{workspace_name}\/(.+)\.git$")
+    pattern2 = re.compile(f"^http(s{0,1}):\/\/github\.org\/{workspace_name}\/(.*)$")
+    pattern3 = re.compile(f"^http(s{0,1}):\/\/{username}@github\.org\/{workspace_name}\/(.*)$")
     if bool(pattern1.match(link)) or bool(pattern2.match(link)) or bool(pattern3.match(link)):
         return True
     else:
