@@ -22,15 +22,14 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
     markdown = ""
     markdown += f"# Project-{project_id} Detailed Grades for {student.get_full_name()}\n\n"
     markdown += f"This is your detailed grade for the Project-{project_id}.\n"
-    markdown += f"Please reade everything carefully and try to understand where you made mistakes (if any).\n"
+    markdown += f"Please read everything carefully and try to understand where you made mistakes (if any).\n"
     markdown += f"We tried to be as descriptive in the grading script messages as possible.\n"
     markdown += f"However, if you don't understand any message, please ask for an explanation!.\n"
-    markdown += f"The file is divided into smaller subsections next.\n"
-    markdown += f"Each section represent a ttask/test we examined.\n"
-    markdown += f"There are task with points and there are other that have zero points.\n"
+    markdown += f"The file is divided into smaller subsections.\n"
+    markdown += f"Each section represent a task/test we examined.\n"
+    markdown += f"There are tasks with points and there are other that have zero points.\n"
     markdown += f"Thus, if you see a zero that is not necessarily a bad thing.\n"
-    markdown += f"At the end of this report, you will see the total points you got " \
-                f"(this should match what is in Blackboard).\n"
+    markdown += f"At the end of this report, you will see the total points you got.\n"
     markdown += f"\n\n"
 
     grading_rubric = student.get_grading_rubric()
@@ -45,14 +44,37 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
         markdown += f"```\n\n"
 
     markdown += f"\n"
-    markdown += f"## Total Grade:\n"
+    markdown += f"## Grading Summary:\n"
+
+    # | Task-ID | Possible Points | Earned Points | Description |
+    # |:-------:|:----------------|:--------------|:------------|
+    # | 1 | 10 | 0 | Run x |
+    # | 2 | 20 | 10 | Run y |
+    # | 3 | 10 |10 | Check z |
+    # | *Total* | *40* | *20* | **Was late n days ** |
+
+    markdown += f"| Task-ID | Status | Possible Points | Earned Points | Description |\n"
+    markdown += f"|:-------:|:------:|:---------------:|:-------------:|:------------|\n"
+    number_of_passed_tasks = 0
+    for task in tasks:
+        # found the cool idea of green and red symbols here https://stackoverflow.com/a/70616224/3504748
+        markdown += f"| {task.task_id} | {'🟢' if task.is_pass else '🔴'} | {task.possible_points} | {task.points} | " \
+                    f"{task.desc} |\n"
+        if task.is_pass:
+            number_of_passed_tasks += 1
     if grading_rubric.is_late:
-        markdown += f"Submission was late!\n"
-        markdown += f"{grading_rubric.get_late_calculation_explanation()}\n\n"
-        markdown += f"**{grading_rubric.get_total_points_when_late()}** out of " \
-                    f"**{grading_rubric.total_possible_points}**!\n\n"
+        markdown += f"| **Total** | {number_of_passed_tasks}/{len(tasks)} | " \
+                    f"**{grading_rubric.total_possible_points}** | " \
+                    f"**{grading_rubric.get_total_points_when_late()}** | " \
+                    f"**Was late {grading_rubric.late_days_count:.2f} days** |\n"
     else:
-        markdown += f"**{grading_rubric.get_total_points()}** out of **{grading_rubric.total_possible_points}**!\n"
+        markdown += f"| **Total** | {number_of_passed_tasks}/{len(tasks)} | " \
+                    f"**{grading_rubric.total_possible_points}** | " \
+                    f"**{grading_rubric.get_total_points()}** | |\n"
+
+    if grading_rubric.is_late:
+        markdown += f"Late deduction explanation!\n"
+        markdown += f"{grading_rubric.get_late_calculation_explanation()}\n\n"
 
     return markdown
 
@@ -78,7 +100,7 @@ def csv_overall_report(students: List[Student], project_id: int, dir_name="repor
     sample_tasks = students[0].get_grading_rubric().get_tasks()
     for sample_task in sample_tasks:
         fields.append(f"t{sample_task.task_id}[{sample_task.possible_points}]")
-    fields += ['is_late', 'late_days', 'penalty_percentage_per_late_day', 'total_considering_late_days']
+    fields += ['is_late', 'late_days', 'penalty_percentage_per_late_day', 'total_if_was_not_late', 'total']
     rows = []
     for student in students:
         row = [f"{student.get_std_id()}", f"{student.get_full_name()}", f"{student.get_repo_link()}"]
@@ -87,10 +109,9 @@ def csv_overall_report(students: List[Student], project_id: int, dir_name="repor
         row.append(student.get_grading_rubric().is_late)
         row.append(student.get_grading_rubric().late_days_count)
         row.append(student.get_grading_rubric().late_fee_per_day)
-        if student.get_grading_rubric().is_late:
-            row.append(student.get_grading_rubric().get_total_points_when_late())
-        else:
-            row.append(f"{student.get_grading_rubric().get_total_points()}")
+        row.append(f"{student.get_grading_rubric().get_total_points()}")
+        row.append(student.get_grading_rubric().get_total_points_when_late())
+
         rows.append(row)
 
     # name of csv file

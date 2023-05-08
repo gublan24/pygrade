@@ -55,12 +55,12 @@ class Rubric:
 
     def get_late_calculation_explanation(self) -> str:
         message = f"Deducting {self.late_fee_per_day*100}% per late-day " \
-                  f"(number of late-days = {self.late_days_count}).\n"
-        message += f"Total deducting percentage = {self.late_fee_per_day*100}% * {self.late_days_count} = " \
-                   f"{self.late_fee_per_day*self.late_days_count*100}%\n"
+                  f"(number of late-days = {self.late_days_count:.2f}).\n"
+        message += f"Total deducting percentage = {self.late_fee_per_day*100}% * {self.late_days_count:.2f} = " \
+                   f"{self.late_fee_per_day*self.late_days_count*100:.2f}%.\n"
         message += f"Total points before deducting late percentage penalty is {self.get_total_points()}.\n"
-        message += f"Final total points after deducting {self.late_fee_per_day*self.late_days_count*100}% " \
-                   f"is {self.get_total_points_when_late()}"
+        message += f"Final total points after deducting {self.late_fee_per_day*self.late_days_count*100:.2f}% " \
+                   f"is {self.get_total_points_when_late()}."
         return message
 
 
