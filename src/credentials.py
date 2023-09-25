@@ -187,6 +187,33 @@ def get_key_from_ini_file(student: Student, key: str, expected_value: str, secti
             return True, result
 
 
+def save_key_value_from_ini_file(student: Student, key: str, section="DEFAULT"):
+    """
+    Look for a specific key under a given section. If it exists save it to the student object.
+
+    :param student: Student object.
+    :param key: The key we look for.
+    :param section: the section under which the key is stored in the ini file. Mostly [DEFAULT]
+    :return:
+    """
+    ini = configparser.ConfigParser()
+
+    try:
+        ini.read(student.get_ini_full_path())
+        logger.debug(f"Reading ini named '{student.get_ini_full_path()}' "
+                     f"for student with id '{student.get_std_id()}' ...")
+        value = ini[section][key]
+    except BaseException as e:
+        logger.warning(f"The file '{student.get_std_id()}' has no configuration key named {key}. Error: {e}")
+        result = f"Failed with error ({e})\n"
+        return False, result
+    else:
+        student[key] = value
+        result = f"Got the value='{value}' for key='{key}'."
+        logger.debug(result)
+        return True, result
+
+
 def strip_quotations(text: str):
     """
     Students tend to surround their values (name, id, and link) with quotation marks. If that is the case,
