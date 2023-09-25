@@ -23,7 +23,15 @@ class Student:
         self._repo_link = None
         self._repo_local_full_path = None
 
+        self.data = {}
+
         self.grades = Rubric()
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def __setitem__(self, key, value):
+        self.data[key] = value
 
     def get_std_id(self) -> str:
         return self._std_id
