@@ -29,19 +29,10 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
     markdown += f"Each section represent a task/test we examined.\n"
     markdown += f"There are tasks with points and there are other that have zero points.\n"
     markdown += f"Thus, if you see a zero that is not necessarily a bad thing.\n"
-    markdown += f"At the end of this report, you will see the total points you got.\n"
     markdown += f"\n\n"
 
     grading_rubric = student.get_grading_rubric()
     tasks = grading_rubric.get_tasks()
-    for task in tasks:
-        markdown += f"#### Task-{task.task_id} [{'PASSED' if task.is_pass else 'FAILED'}, " \
-                    f"{task.points}/{task.possible_points}]\n"
-        markdown += f"- **Goal**: {task.desc}\n"
-        markdown += f"- **Result**: Feedback from us and/or the system:\n\n"
-        markdown += f"```\n"
-        markdown += f"{task.result_desc}\n"
-        markdown += f"```\n\n"
 
     markdown += f"\n"
     markdown += f"## Grading Summary:\n"
@@ -58,8 +49,8 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
     number_of_passed_tasks = 0
     for task in tasks:
         # found the cool idea of green and red symbols here https://stackoverflow.com/a/70616224/3504748
-        markdown += f"| {task.task_id} | {'🟢' if task.is_pass else '🔴'} | {task.possible_points} | {task.points} | " \
-                    f"{task.desc} |\n"
+        markdown += (f"| [{task.task_id}](#task{task.task_id}) | {'🟢' if task.is_pass else '🔴'} | "
+                     f"{task.possible_points} | {task.points} | {task.desc} |\n")
         if task.is_pass:
             number_of_passed_tasks += 1
     if grading_rubric.is_late:
@@ -73,8 +64,21 @@ def markdown_student_feedback(student: Student, project_id: int) -> str:
                     f"**{grading_rubric.get_total_points()}** | |\n"
 
     if grading_rubric.is_late:
-        markdown += f"Late deduction explanation!\n"
+        markdown += f"\nLate deduction explanation!\n"
         markdown += f"{grading_rubric.get_late_calculation_explanation()}\n\n"
+
+    # detailed grading:
+
+    markdown += f"\n\n"
+    markdown += f"## Detailed Grading:\n"
+    for task in tasks:
+        markdown += (f'#### <a name="task{task.task_id}"></a>Task-{task.task_id} '
+                     f'[{"PASSED" if task.is_pass else "FAILED"}, {task.points}/{task.possible_points}]\n')
+        markdown += f"- **Goal**: {task.desc}\n"
+        markdown += f"- **Result**: Feedback from us and/or the system:\n\n"
+        markdown += f"```\n"
+        markdown += f"{task.result_desc}\n"
+        markdown += f"```\n\n"
 
     return markdown
 

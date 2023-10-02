@@ -12,6 +12,11 @@ logger = logging.getLogger(__name__)
 
 
 def get_ini_files(path: str) -> list:
+    """
+    Return all .ini files within path.
+    :param path: The path where we should look for ini files/
+    :return: A list with an absolute path to each ini file.
+    """
     if not os.path.isdir(path):
         raise RuntimeError(f"{path} is not a directory!")
 
@@ -20,6 +25,7 @@ def get_ini_files(path: str) -> list:
     if not ini_files:
         raise RuntimeError(f"No .ini files found in {path}")
 
+    logger.debug(f"Found .ini files {ini_files}")
     return ini_files
 
 

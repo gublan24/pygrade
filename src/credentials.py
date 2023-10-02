@@ -15,6 +15,11 @@ logger = logging.getLogger(__name__)
 
 
 def get_students_objects_from_path(key_files: List[str]) -> List[Student]:
+    """
+    Given a list of ini files, initialize a list of Students objects.
+    :param key_files: A list with a path to each ini file.
+    :return: A list of students objects.
+    """
     students = []
     student_ids = []  # this is for validation only
     for file_full_path in key_files:
@@ -128,7 +133,7 @@ def get_student_repo_link_from_ini(student: Student, section="DEFAULT"):
     else:
         if is_our_repo(link, config.workspace, config.username):
             result = f"The link provided is the original class repo.\n" \
-                     f"We expect 'git@bitbucket.org:username/projectname.git' that you own, but we got " \
+                     f"We expect 'git@githbu.com:it492/projectname.git' that you own, but we got " \
                      f"'{link}'\n" \
                      f"No points (if any) will be given to this task, and we will not clone the repo."
             student.set_repo_link("ProvidedOriginalLink")
@@ -136,7 +141,7 @@ def get_student_repo_link_from_ini(student: Student, section="DEFAULT"):
             return False, result
         elif not is_link_pattern_valid(link):
             result = f"The link provided doesn't match the link pattern we look for.\n" \
-                     f"We expect 'git@bitbucket.org:username/projectname.git', but we got " \
+                     f"We expect 'git@github.com:workspace/projectname.git', but we got " \
                      f"'{student.get_repo_link()}'\n" \
                      f"No points (if any) will be given to this task, but we will try the link anyway."
             student.set_repo_link(link)
@@ -147,6 +152,66 @@ def get_student_repo_link_from_ini(student: Student, section="DEFAULT"):
             student.set_repo_link(link)
             logger.debug(result)
             return True, result
+
+
+def get_key_from_ini_file(student: Student, key: str, expected_value: str, section="DEFAULT"):
+    """
+    Look for a specific key under a given section and see if it matches a desired value.
+
+    :param student: Student object.
+    :param key: The key we look for.
+    :param expected_value: The expected value of the key.
+    :param section: the section under which the key is stored in the ini file. Mostly [DEFAULT]
+    :return:
+    """
+    ini = configparser.ConfigParser()
+
+    try:
+        ini.read(student.get_ini_full_path())
+        logger.debug(f"Reading ini named '{student.get_ini_full_path()}' "
+                     f"for student with id '{student.get_std_id()}' ...")
+        value = ini[section][key]
+    except BaseException as e:
+        logger.warning(f"The file '{student.get_std_id()}' has a configuration key named {key}. Error: {e}")
+        result = f"Failed with error ({e})\n"
+        return False, result
+    else:
+        if value.lower() != expected_value.lower():
+            result = f"The value '{value}' of the key {key} does not match the the one we are looking for " \
+                     f"'{expected_value}'"
+            logger.debug(result)
+            return False, result
+        else:
+            result = f"Got a valid value '{value}' for the key '{key}'."
+            logger.debug(result)
+            return True, result
+
+
+def save_key_value_from_ini_file(student: Student, key: str, section="DEFAULT"):
+    """
+    Look for a specific key under a given section. If it exists save it to the student object.
+
+    :param student: Student object.
+    :param key: The key we look for.
+    :param section: the section under which the key is stored in the ini file. Mostly [DEFAULT]
+    :return:
+    """
+    ini = configparser.ConfigParser()
+
+    try:
+        ini.read(student.get_ini_full_path())
+        logger.debug(f"Reading ini named '{student.get_ini_full_path()}' "
+                     f"for student with id '{student.get_std_id()}' ...")
+        value = ini[section][key]
+    except BaseException as e:
+        logger.warning(f"The file '{student.get_std_id()}' has no configuration key named {key}. Error: {e}")
+        result = f"Failed with error ({e})\n"
+        return False, result
+    else:
+        student[key] = value
+        result = f"Got the value='{value}' for key='{key}'."
+        logger.debug(result)
+        return True, result
 
 
 def strip_quotations(text: str):
@@ -184,9 +249,9 @@ def is_our_repo(link: str, workspace_name: str, username: str) -> bool:
     :param username:
     :return: True if the link matches our pattern, False otherwise.
     """
-    pattern1 = re.compile(f"^git@github\.org:{workspace_name}\/(.+)\.git$")
-    pattern2 = re.compile(f"^http(s{0,1}):\/\/github\.org\/{workspace_name}\/(.*)$")
-    pattern3 = re.compile(f"^http(s{0,1}):\/\/{username}@github\.org\/{workspace_name}\/(.*)$")
+    pattern1 = re.compile(f"^git@github\.com:{workspace_name}\/project-(\d)-([a-z]*)\.git$")
+    pattern2 = re.compile(f"^http(s{0,1}):\/\/github\.com\/{workspace_name}\/(.*)$")
+    pattern3 = re.compile(f"^http(s{0,1}):\/\/{username}@github\.com\/{workspace_name}\/(.*)$")
     if bool(pattern1.match(link)) or bool(pattern2.match(link)) or bool(pattern3.match(link)):
         return True
     else:
