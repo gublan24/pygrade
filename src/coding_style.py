@@ -1,3 +1,4 @@
+import os
 import re
 import logging
 import subprocess
@@ -67,6 +68,12 @@ def check_for_type_hints(student: Student, class_name: str):
     :param class_name:
     :return:
     """
+
+    # if file doesn't exist and is accessible, don't do anything.
+    path = f"{student.get_repo_local_location()}/{class_name}"
+    if not os.path.isfile(path):
+        logger.debug(f"Didn't find the file {path}")
+        return Feedback(False, 0, f"No file named {class_name}!")
 
     # We only focus on the following annotation errors (see https://pypi.org/project/flake8-annotations/):
     annotations = "ANN001,ANN201,ANN202,ANN203,ANN204,ANN205,ANN206"
