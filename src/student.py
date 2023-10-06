@@ -28,7 +28,7 @@ class Student:
         self.grades = Rubric()
 
     def __getitem__(self, item):
-        return self.data[item]
+        return self.data.get(item, 'NoSuchKey')
 
     def __setitem__(self, key, value):
         self.data[key] = value
