@@ -25,7 +25,7 @@ for handler in logging.root.handlers[:]:  # make sure all handlers are removed
     logging.root.removeHandler(handler)
 # in some cases the logging level will change to DEBUG based on what happens in search, but in general this is the
 # logging level we want
-logging_level = logging.DEBUG
+logging_level = logging.WARNING
 logging.root.setLevel(logging_level)
 logging_format = logging.Formatter('%(asctime)s: %(levelname)s [%(name)s:%(funcName)s:%(lineno)d] - %(message)s')
 
@@ -34,14 +34,15 @@ h.setFormatter(logging_format)
 logging.root.addHandler(h)
 
 # pattern (year, month[1:12], day[1:31], hour[0:23], minutes[0:59])
-P0_DEADLINE = datetime.datetime(2022, 9, 12, 17, 0)
-P1_DEADLINE = datetime.datetime(2022, 9, 19, 17, 0)
-P2_DEADLINE = datetime.datetime(2022, 9, 26, 17, 0)
-P3_DEADLINE = datetime.datetime(2022, 10, 3, 17, 0)
-P4_DEADLINE = datetime.datetime(2022, 10, 17, 17, 0)
-P5_DEADLINE = datetime.datetime(2022, 10, 24, 17, 0)
-P6_DEADLINE = datetime.datetime(2022, 10, 31, 17, 0)
-P7_DEADLINE = datetime.datetime(2022, 11, 7, 17, 0)
+P0_DEADLINE = datetime.datetime(2024, 2, 6, 17, 0)
+P1_DEADLINE = datetime.datetime(2024, 2, 14, 17, 0)
+P2_DEADLINE = datetime.datetime(2024, 2, 21, 17, 0)
+P3_DEADLINE = datetime.datetime(2024, 3, 6, 17, 0)
+P4_DEADLINE = datetime.datetime(2024, 3, 13, 17, 0)
+P5_DEADLINE = datetime.datetime(2024, 3, 24, 17, 0)
+P6_DEADLINE = datetime.datetime(2024, 4, 17, 17, 0)
+P7_DEADLINE = datetime.datetime(2024, 5, 1, 17, 0)
+P8_DEADLINE = datetime.datetime(2024, 5, 8, 17, 0)
 
 # original links for the assignment repo, we only need the workspace name and user!
 # these are needed to see if student provided the link of the original repo
